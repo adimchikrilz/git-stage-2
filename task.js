@@ -14,6 +14,7 @@ class Customer {
         console.log(`Updated phone number for ${this.name} to ${this.phone}.`);
     }
   }
+  //RESERVATION
   class Reservation {
     constructor(id, customerId, reservationTime, tableNumber) {
         this.id = id;
