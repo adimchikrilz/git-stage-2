@@ -1,46 +1,45 @@
 class Customer {
-    constructor(id, name, phone) {
+    static totalCustomers = 0; // Static property to keep track of total customers
+
+    constructor(id, name, email) {
         this.id = id;
         this.name = name;
-        this.phone = phone;
+        this.email = email;
+        Customer.totalCustomers++; // Increment total customers when a new customer is created
     }
-  
+
     getDetails() {
-        return `${this.name} can be reached at ${this.phone}.`;
+        return `${this.name} (${this.email})`;
     }
-  
-    updatePhone(newPhone) {
-        this.phone = newPhone;
-        console.log(`Updated phone number for ${this.name} to ${this.phone}.`);
+
+    static getTotalCustomers() {
+        return Customer.totalCustomers;
     }
-  }
-  //RESERVATION
-  class Reservation {
-    constructor(id, customerId, reservationTime, tableNumber) {
+}
+class Booking {
+    constructor(id, customerId, roomType, checkInDate, checkOutDate) {
         this.id = id;
         this.customerId = customerId;
-        this.reservationTime = reservationTime;
-        this.tableNumber = tableNumber;
-        this.isConfirmed = false;
+        this.roomType = roomType;
+        this.checkInDate = new Date(checkInDate);
+        this.checkOutDate = new Date(checkOutDate);
     }
-  
-    confirmReservation() {
-        this.isConfirmed = true;
-        console.log(`Reservation ID ${this.id} confirmed for Table ${this.tableNumber} at ${this.reservationTime}.`);
+
+    confirmBooking() {
+        console.log(`Booking ID ${this.id} confirmed for ${this.roomType} from ${this.checkInDate.toLocaleDateString()} to ${this.checkOutDate.toLocaleDateString()}.`);
     }
-  
-    cancelReservation() {
-        this.isConfirmed = false;
-        console.log(`Reservation ID ${this.id} has been canceled.`);
+
+    cancelBooking() {
+        console.log(`Booking ID ${this.id} has been canceled.`);
     }
-  }
-  // Example usage
-  const customer1 = new Customer(1, "Adimchi Igwenagu", "+234-7869-678-9008");
-  console.log(customer1.getDetails()); // Output: Alice Johnson can be reached at 555-1234.
-  
-  const reservation1 = new Reservation(101, customer1.id, new Date("2025-01-20T19:00:00"), 5);
-  reservation1.confirmReservation(); 
-  reservation1.cancelReservation(); 
-  
-  customer1.updatePhone("+234-7069-678-9045"); 
-  
+}
+//output
+const customer1 = new Customer(1, "Adimchi Igwenagu", "adimchikrilz@gmail.com");
+console.log(customer1.getDetails()); 
+const customer2 = new Customer(2, "Eze Ebube", "ezebubs@gmail.com");
+console.log(customer2.getDetails()); 
+console.log(`Total Customers: ${Customer.getTotalCustomers()}`); 
+
+const booking1 = new Booking(101, customer1.id, "Deluxe Room", "2025-01-20", "2025-01-25");
+booking1.confirmBooking(); 
+booking1.cancelBooking(); 
